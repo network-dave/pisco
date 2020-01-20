@@ -7,10 +7,10 @@ Instead of relying on external libraries, I wanted to develop something quickly 
 It was made with specific considerations in mind. It had to be:
 
 - Lightweight - only a couple hundred lines long including documentation.
-- Self-contained - relies on Python's Standard Library.
+- Self-contained - relies on Python's Standard Library only.
 - Portable - works on Windows, Linux and Mac.
 - Backward compatible - works with older versions of Python3 (tested with Python 3.4.3 on Windows Server 2003).
-
+  
 
 
 ## Prerequisites
@@ -18,7 +18,7 @@ It was made with specific considerations in mind. It had to be:
 Python >= 3.4
 
 Pisco.py has no dependencies other that modules from the Standard Library.
-
+  
 
 
 ## Installation
@@ -26,7 +26,7 @@ Pisco.py has no dependencies other that modules from the Standard Library.
 Simply copy pisco.py to any directory and run it from your favorite terminal.
 
 You can also "import pisco" from another Python script and reuse the TelnetDevice class.
-
+  
 
 
 ## Supported platforms
@@ -34,7 +34,7 @@ You can also "import pisco" from another Python script and reuse the TelnetDevic
 Any Cisco IOS devices. Might eventually work with other stuff like Cisco WLC's... Maybe even other brands.
 
 Let me know if it does!
-
+  
 
 
 ## CLI Examples
@@ -55,11 +55,11 @@ Configure the description for interface Gi1/0/1 on all devices listed in 'my_swi
 ```
 py pisco.py -c "conf t,int g1/0/1,desc Interface 1" -D my_switches.txt -u admin -p CiscoCisco
 ```
-Get the running config from all the switches listed in 'my_switches.txt' using the admin:CiscoCisco credentials, and save the output for each device in the './configs' folder, in a different subfolder named after it's IP address (poor man's config backup script):
+Save and then pull the running config from all devices listed in 'my_switches.txt' using the admin:CiscoCisco credentials, and save the output for each device in the './configs' folder in a different subfolder named after it's IP address (a poor man's config backup script):
 ```
 py pisco.py -c "write,show run" -D my_switches.txt -u admin -p CiscoCisco -sSO ./configs/{ip_address}
 ```
-
+  
 
 
 ## Disclaimer
@@ -68,5 +68,5 @@ Pisco.py is my first Python project and was made for educational and practical r
 
 If you have any remarks regarding the code I will be happy to hear from you, please drop me a line at my email address.
 
-
+  
 
