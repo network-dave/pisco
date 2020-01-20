@@ -36,8 +36,13 @@ Any Cisco IOS devices. Might eventually work with other stuff like Cisco WLC's..
 Let me know if it does!
   
 
+## Usage
 
-## CLI Examples
+** Coming soon... **
+
+
+
+## Examples
 
 Get the running config from a device:
 ```
