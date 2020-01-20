@@ -36,7 +36,7 @@ class TelnetDevice(telnetlib.Telnet):
     -   get_int_list
     -   get_int_status (with or without full description and PoE status)
 
-    Those methods handle encoding/decoding of strings/bytes so we do not have to do it manually each time.
+    Those methods handle encoding/decoding of strings/bytes.
     '''
 
     def __init__(self, host, username=None, password=None, enable_password=None, quiet=False, debug=False):
@@ -284,7 +284,6 @@ def parse_arguments():
     return parser.parse_args()
 
 
-#@Gooey(default_size=(800,600),program_name="Pisco",terminal_font_family="Courier",required_cols=1,optional_cols=1)
 def main():
     '''
     Pisco.py Main program
