@@ -2,7 +2,7 @@
 
 '''
 
-Pisco.py - Command-line tool to interact with Cisco IOS devices via Telnet
+Pisco.py - Run commands on Cisco devices via Telnet
 
 Usage: use --help for help
 
@@ -260,7 +260,7 @@ def parse_arguments():
 
     '''
 
-    parser = argparse.ArgumentParser(description="Interact with Cisco devices via Telnet", add_help=False)
+    parser = argparse.ArgumentParser(description="Run commands on Cisco devices via Telnet", add_help=False)
 
     first_arg_group = parser.add_argument_group(title="Devices/Commands")
     arg_device = first_arg_group.add_mutually_exclusive_group(required=True)
@@ -272,8 +272,8 @@ def parse_arguments():
     arg_commands.add_argument("--autodeploy", help="load commands from file <ipaddress>_autodeploy.txt for each device", action="store_true")
 
     second_arg_group = parser.add_argument_group(title="Credentials")
-    second_arg_group.add_argument("-u", "--username",required=True)
-    second_arg_group.add_argument("-p", "--password",required=True)
+    second_arg_group.add_argument("-u", "--username")
+    second_arg_group.add_argument("-p", "--password")
     second_arg_group.add_argument("-e", "--enable-password")
 
     third_arg_group = parser.add_argument_group(title="Save output")
@@ -333,7 +333,7 @@ def main():
     for ip_address in list_ip_addresses:
         
         try:
-            telnet = TelnetDevice(ip_address, username=args.username, password=args.password, enable_password=args.enable_password, debug=args.debug)
+            telnet = TelnetDevice(ip_address, username=args.username, password=args.password, enable_password=args.enable_password, debug=args.debug, quiet=args.table)
         except Exception as e:
             print("[!] Error while connecting to {}".format(ip_address))
             print(str(e)) 
@@ -374,9 +374,6 @@ def main():
                 print("[!] No autodeploy file found. Skipping device.")
                 continue
 
-        if args.table:
-            print(ip_address, end="", file=output_file_object)
-
         if args.batch:
             # EXPERIMENTAL!
             telnet.send_command("")
@@ -386,7 +383,7 @@ def main():
             telnet.send_command("\x1A")
             telnet.send_command("exit")
             response = telnet.read_all().decode("Latin-1")
-            print("\n[{}] {}: Output of batch commands:\n{}\n".format(telnet.when, telnet.host, response), file=output_file_object)
+            print("\n[{}] {} ({}): Output of batch commands:\n{}\n".format(telnet.when, telnet.host, telnet.hostname, response), file=output_file_object)
         else:
             for c in commands:
                 telnet.send_command(c)
@@ -399,12 +396,11 @@ def main():
                     response.pop(-1)
                     response = "\n".join(response)
                 if args.table:
-                    print("\t{}".format(response.replace("\n", "").replace("\r", "")), end="", file=output_file_object)
+                    print("{}\t{}\t{}".format(telnet.host, telnet.hostname, response.replace("\n", "").replace("\r", "")), file=output_file_object)
                 else:
-                    print("\n[{}] {}: Output of command '{}'\n{}\n".format(telnet.when, telnet.host, c, response), file=output_file_object)
+                    print("\n[{}] {} ({}): Output of command '{}'\n{}\n".format(telnet.when, telnet.host, telnet.hostname, c, response), file=output_file_object)
             telnet.close()
-        if args.table:
-            print("", file=output_file_object)
+
         if args.save:
             print(" Done\n")
     
