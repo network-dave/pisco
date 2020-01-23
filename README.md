@@ -38,8 +38,15 @@ Let me know if it does!
 
 ## Usage
 
-** Coming soon... **
+Run 'pisco.py --help' for help.
 
+Notes:
+- Specify multiple IP addresses or usernames/passwords by separating them by a comma
+- When using multiple usernames and passwords, both lists must have the same length
+- 'DEVICE_LIST.txt' skips lines starting with '!' or '#'
+- 'COMMANDS.txt' shall include one command per line
+- '--save' will save the output to a 'pisco_output_xxx.txt" file in the current directory
+- You can use {ip_address}, {hostname}, {date_time} and/or {username} in the path for '--output-directory'
 
 
 ## Examples
@@ -69,7 +76,7 @@ py pisco.py -c "write,show run" -D my_switches.txt -u admin -p CiscoCisco -sSO .
 
 ## Disclaimer
 
-Pisco.py is my first Python project and was made for educational and practical reasons. 
+Pisco.py is my first Python project and was made for educational and practical purposes. Use at your own risk!
 
 If you have any remarks regarding the code I will be happy to hear from you, please drop me a line at my email address.
 
