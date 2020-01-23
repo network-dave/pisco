@@ -261,27 +261,32 @@ def parse_arguments():
     '''
 
     parser = argparse.ArgumentParser(description="Interact with Cisco devices via Telnet", add_help=False)
-    first_arg_group = parser.add_argument_group(title="Commands / Devices (required)")
+
+    first_arg_group = parser.add_argument_group(title="Devices/Commands")
+    arg_device = first_arg_group.add_mutually_exclusive_group(required=True)
+    arg_device.add_argument("-d", "--device", help="IP address(es) of the device(s) to connect to (separated by commas)")
+    arg_device.add_argument("-D", "--device-list", help="text file containing a list of IP addresses")
     arg_commands = first_arg_group.add_mutually_exclusive_group(required=True)
     arg_commands.add_argument("-c", "--commands", help="command(s) to execute on the device (separated by commas)", nargs="*")
     arg_commands.add_argument("-C", "--command-list", help="text file containing a list of commands to execute")
-    arg_commands.add_argument("--autodeploy", help="load list of commands from file <ipaddress>_autodeploy.txt for each device", action="store_true")
-    arg_device = first_arg_group.add_mutually_exclusive_group(required=True)
-    arg_device.add_argument("-d", "--device", help="IP address(es) of the device(s) to connect to (separated by commas)")
-    arg_device.add_argument("-D", "--device-list", help="text file containing a list of IP addresses (one address per line)")
-    second_arg_group = parser.add_argument_group(title="Credentials (optional)")
-    second_arg_group.add_argument("-u", "--username")
-    second_arg_group.add_argument("-p", "--password")
-    second_arg_group.add_argument("-e", "--enable-password", help="enable password/secret")
-    third_arg_group = parser.add_argument_group(title="Options")
-    third_arg_group.add_argument("-n", "--no-enable", help="do not go into enable mode after login", action="store_true")
+    arg_commands.add_argument("--autodeploy", help="load commands from file <ipaddress>_autodeploy.txt for each device", action="store_true")
+
+    second_arg_group = parser.add_argument_group(title="Credentials")
+    second_arg_group.add_argument("-u", "--username",required=True)
+    second_arg_group.add_argument("-p", "--password",required=True)
+    second_arg_group.add_argument("-e", "--enable-password")
+
+    third_arg_group = parser.add_argument_group(title="Save output")
     third_arg_group.add_argument("-s", "--save", help="save the output to text file(s)", action="store_true")
     third_arg_group.add_argument("-O", "--output-directory", help="specify a directory where to save the output to")
     third_arg_group.add_argument("-S", "--separate-output", help="save the output of each device to a separate file", action="store_true")
-    third_arg_group.add_argument("-b", "--batch", help="send all commands at once (EXPERIMENTAL)", action="store_true")
-    third_arg_group.add_argument("-T", "--table", help="format output as a table with IP address in first position", action="store_true")
-    third_arg_group.add_argument("--debug", help="enable telnet debugging", action="store_true")
-    third_arg_group.add_argument("-h", "--help", help="display this message and exit", action="help")
+
+    fourth_arg_group = parser.add_argument_group(title="Options")
+    fourth_arg_group.add_argument("-n", "--no-enable", help="do not go into enable mode", action="store_true")
+    fourth_arg_group.add_argument("-b", "--batch", help="send all commands at once (EXPERIMENTAL)", action="store_true")
+    fourth_arg_group.add_argument("-T", "--table", help="format output as a table with IP address in first column", action="store_true")
+    fourth_arg_group.add_argument("--debug", help="enable Telnet debugging", action="store_true")
+    fourth_arg_group.add_argument("-h", "--help", help="display this message and exit", action="help")
 
     return parser.parse_args()
 
