@@ -44,6 +44,7 @@ class TelnetDevice(telnetlib.Telnet):
         Instantiating the TelnetDevice class will automatically connect and log into the device
         '''
         self.host = host
+        self.hostname = ""
         self.username = username
         self.password = password
         self.enable_password = enable_password
@@ -83,9 +84,11 @@ class TelnetDevice(telnetlib.Telnet):
 
             if response.endswith(">"):
                 login_successful = True
+                self.hostname = response.splitlines()[-1].rstrip(">")
             elif response.endswith("#"):
                 login_successful = True
                 self.enable_mode = True
+                self.hostname = response.splitlines()[-1].rstrip("#")
             else:
                 if (len(self.username.split(DELIMITER)) - retries) > 1:
                     print("[!] Wrong login/password, trying next one in list")
@@ -106,7 +109,6 @@ class TelnetDevice(telnetlib.Telnet):
         '''
 
         self.write(command.encode("Latin_1") + b"\n")
-
 
 
     def read_output(self,password_prompt=False):
@@ -299,7 +301,8 @@ def main():
             for line in content:
                 if not line.startswith("!") and not line.startswith("#") and line.strip():
                     for ip_address in re.findall(r"(?:\d{1,3}\.){3}\d{1,3}", line):
-                        list_ip_addresses.append(ip_address if ip_address not in list_ip_addresses and not ip_address.startswith("255.") else "")
+                        if ip_address not in list_ip_addresses and not ip_address.startswith("255."):
+                            list_ip_addresses.append(ip_address)
     else:
         list_ip_addresses = args.device.split(",")
 
