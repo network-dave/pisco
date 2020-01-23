@@ -1,6 +1,6 @@
 # pisco.py
 
-Command line tool to interact with Cisco devices via Telnet
+A small CLI tool to run commands on Cisco devices via Telnet.
 
 Pisco is a little project I've put together to help me automate a couple tasks involving legacy Cisco devices. 
 Instead of relying on external libraries, I wanted to develop something quickly with full control on the process.
