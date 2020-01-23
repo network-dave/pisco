@@ -52,7 +52,7 @@ Run a command including a pipe filter without going into enable mode from 2 devi
 ```
 py pisco.py -c "show int status | i down" -d 172.16.100.1,172.16.100.2 -u networkdave -n
 ```
-Run the commands from 'commands.txt' on the device by trying 2 different usernames and passwords and then save it to file:
+Run the commands in 'commands.txt' on a device by trying 2 different usernames and passwords and save the output to file:
 ```
 py pisco.py -C commands.txt -d 172.16.100.1 -u networkdave,networkbill -p davespass,billspass -s
 ```
