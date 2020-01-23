@@ -74,7 +74,7 @@ Pisco.py is my first Python project and was made for educational and practical r
 If you have any remarks regarding the code I will be happy to hear from you, please drop me a line at my email address.
 
 
-## Caveat
+## Caveats
 
-Pisco relies on looking for characters ">" or "#" to find the prompt of the device. If those characters appear elsewhere in the output (for example in an interface's description) it will break the system. I'm looking for way to fix this ASAP.
+Pisco relies on looking for characters ">" or "#" to find the prompt of the device. If those characters appear elsewhere in the output (for example in an interface's description) it will break the system. I'm looking for a way to fix this ASAP.
 
