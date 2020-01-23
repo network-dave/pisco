@@ -52,13 +52,13 @@ Run a command including a pipe filter without going into enable mode from 2 devi
 ```
 py pisco.py -c "show int status | i down" -d 172.16.100.1,172.16.100.2 -u networkdave -n
 ```
-Get the running config from a device by trying 2 different usernames and passwords and save it to file:
+Run the commands from 'commands.txt' on the device by trying 2 different usernames and passwords and then save it to file:
 ```
-py pisco.py -c "show run" -d 172.16.100.1 -u networkdave,networkbill -p davespass,billspass -s
+py pisco.py -C commands.txt -d 172.16.100.1 -u networkdave,networkbill -p davespass,billspass -s
 ```
 Configure the description for interface Gi1/0/1 on all devices listed in 'my_switches.txt' using the admin:CiscoCisco credentials:
 ```
-py pisco.py -c "conf t,int g1/0/1,desc Interface 1" -D my_switches.txt -u admin -p CiscoCisco
+py pisco.py -c "conf t,int g1/0/1,desc Interface 1" -D my_switches.txt -u admin -p CiscoCisco -e Enable123
 ```
 Save and then pull the running config from all devices listed in 'my_switches.txt' using the admin:CiscoCisco credentials, and save the output for each device in the './configs' folder in a different subfolder named after it's IP address (a poor man's config backup script):
 ```
