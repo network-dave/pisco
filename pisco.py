@@ -353,7 +353,7 @@ def main():
 
         if args.save:
             if args.output_directory:
-                save_dir = args.output_directory.format(date_time=date_time, ip_address=ip_address, username=telnet.username)
+                save_dir = args.output_directory.format(date_time=date_time, ip_address=ip_address, hostname=telnet.hostname, username=telnet.username)
                 if not os.path.exists(save_dir):
                     os.makedirs(save_dir, exist_ok=True)
             else:
