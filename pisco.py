@@ -359,7 +359,7 @@ def main():
             else:
                 save_dir = os.getcwd()
             if args.separate_output:
-                filename = os.path.join(save_dir, "pisco_output_{}_{}.txt".format(ip_address, date_time))
+                filename = os.path.join(save_dir, "pisco_output_{}_{}_{}.txt".format(telnet.hostname, ip_address, date_time))
             else:
                 filename = os.path.join(save_dir, "pisco_output_{}.txt".format(date_time))
             output_file_object = open(filename, "a")
