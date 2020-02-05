@@ -71,7 +71,22 @@ Save and then pull the running config from all devices listed in 'my_switches.tx
 ```
 py pisco.py -c "write,show run" -D my_switches.txt -u admin -p CiscoCisco -sSO ./configs/{ip_address}
 ```
-  
+ 
+ 
+## GUI
+
+A graphical front-end is available for pisco.py via the gpisco.py script. It uses the Gooey library (https://github.com/chriskiehl/Gooey) to generate a GUI from the command-line script. Gooey let's you turn any pytnon script in a graphical program with only a few lines of code (1 is enough).
+
+Just run:
+
+```
+pip install gooey
+gpisco.py
+```
+
+and BINGO, no more CLI.
+
+You can also package a stand-alone executable file thanks to pyInstaller (https://www.pyinstaller.org/), using the gpisco.spec file.
 
 
 ## Disclaimer
