@@ -1,4 +1,5 @@
 import pisco
+from functools import partial
 from gooey import Gooey, GooeyParser
 
 '''
@@ -29,7 +30,7 @@ def gooey_arguments():
     second_arg_group = parser.add_argument_group(title="Credentials")
     second_arg_group.add_argument("-u", "--username",required=True)
     second_arg_group.add_argument("-p", "--password", widget="PasswordField",required=True)
-    second_arg_group.add_argument("-e", "--enable-password")
+    second_arg_group.add_argument("-e", "--enable-password", widget="PasswordField")
 
     third_arg_group = parser.add_argument_group(title="Save output")
     third_arg_group.add_argument("-s", "--save", help="save the output to text file(s)", action="store_true")
@@ -44,6 +45,10 @@ def gooey_arguments():
     fourth_arg_group.add_argument("-h", "--help", help="display this message and exit", action="help")
 
     return parser.parse_args()
+
+
+# STDOUT is buffered by default, this is needed to output the print statements in real time
+print = partial(print, flush=True)
 
 pisco.parse_arguments = gooey_arguments
 pisco.main()
