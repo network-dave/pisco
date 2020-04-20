@@ -39,11 +39,12 @@ class TelnetDevice(telnetlib.Telnet):
     Those methods handle encoding/decoding of strings/bytes.
     '''
 
-    def __init__(self, host, username=None, password=None, enable_password=None, quiet=False, debug=False):
+    def __init__(self, host, port=23, username=None, password=None, enable_password=None, quiet=False, debug=False):
         '''
         Instantiating the TelnetDevice class will automatically connect and log into the device
         '''
         self.host = host
+        self.port = port
         self.hostname = ""
         self.username = username
         self.password = password
@@ -57,7 +58,7 @@ class TelnetDevice(telnetlib.Telnet):
         if not quiet:
             print("[+] Connecting to {}... ".format(host))
 
-        telnetlib.Telnet.__init__(self, host, timeout=4)
+        telnetlib.Telnet.__init__(self, host, port=self.port, timeout=4)
         response = self.read_output(password_prompt=True).splitlines()[-1]
 
         if self.debug:
@@ -67,7 +68,7 @@ class TelnetDevice(telnetlib.Telnet):
         login_successful = False            
 
         while not login_successful:
-            if "User" in response:
+            if "User" in response or "ame" in response:
                 if not self.username:
                     self.username = input("Username: ")
                 self.send_command(self.username.split(DELIMITER)[retries])
@@ -282,6 +283,7 @@ def parse_arguments():
     third_arg_group.add_argument("-S", "--separate-output", help="save the output of each device to a separate file", action="store_true")
 
     fourth_arg_group = parser.add_argument_group(title="Options")
+    fourth_arg_group.add_argument("--port", help="Telnet port (default=23)", default="23")
     fourth_arg_group.add_argument("-n", "--no-enable", help="do not go into enable mode", action="store_true")
     fourth_arg_group.add_argument("-b", "--batch", help="send all commands at once (EXPERIMENTAL)", action="store_true")
     fourth_arg_group.add_argument("-T", "--table", help="format output as a table with IP address in first column", action="store_true")
@@ -333,7 +335,7 @@ def main():
     for ip_address in list_ip_addresses:
         
         try:
-            telnet = TelnetDevice(ip_address, username=args.username, password=args.password, enable_password=args.enable_password, debug=args.debug, quiet=args.table)
+            telnet = TelnetDevice(ip_address, port=args.port, username=args.username, password=args.password, enable_password=args.enable_password, debug=args.debug, quiet=args.table)
         except Exception as e:
             print("[!] Error while connecting to {}".format(ip_address))
             print(str(e)) 
