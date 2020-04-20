@@ -17,7 +17,7 @@ It was made with specific considerations in mind. It had to be:
 
 Python >= 3.4
 
-Pisco.py has no dependencies other that modules from the Standard Library.
+Pisco.py has no dependencies other than modules from the Standard Library.
   
 
 
