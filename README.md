@@ -1,4 +1,4 @@
-# pisco.py
+# Pisco (discontinued)
 
 Run commands on Cisco devices via Telnet.
 
@@ -10,7 +10,8 @@ It was made with specific considerations in mind. It had to be:
 - Self-contained - relies on Python's Standard Library only.
 - Portable - works on Windows, Linux and Mac.
 - Backward compatible - works with older versions of Python3 (tested with Python 3.4.3 on Windows Server 2003).
-  
+
+Edit: due to the number of amazing CLI scraping libraries like Netmiko and Scrapli, I decided to stop any further work on Pisco and move on. Leaving the repo online because it can still be useful for some use cases.
 
 
 ## Prerequisites
