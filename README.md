@@ -1,6 +1,6 @@
 # Pisco (discontinued)
 
-Run commands on Cisco devices via Telnet.
+Run commands on Cisco network devices via Telnet.
 
 Pisco is a little project I've put together to help me automate a couple tasks involving legacy Cisco devices. 
 Instead of relying on external libraries, I wanted to develop something quickly with full control on the process.
